@@ -1,6 +1,6 @@
 ### **Predicting neural spike trains from two-photon calcium imaging**
 
-Maite Azcorra-Sedano, Han Jiang, Torben Noto, Vivek Sagar . 
+Maite Azcorra-Sedano, Han Jiang, Torben Noto, Vivek Sagar .
 Northwestern University, EECS349 Spring 2017 - Machine Learning
 
 #### Abstract
@@ -19,11 +19,11 @@ Northwestern University, EECS349 Spring 2017 - Machine Learning
 #### Introduction
 
 
-#### Data Acquisition and Feature Selection . 
+#### Data Acquisition and Feature Selection .
 Simultaneous calcium and spike data were acquired from 5 sessions (with between 5-21 neurons in each session and each neuron yielding of the order of 30,000-80,000 time points worth of instances). Spike trains were binarized, and raw calcium signals were converted into features (Fig 1.). We use the calcium signal to derive additional attributes, namely, the history and future of calcium activity, first and higher order derivatives, and a moving average across the calcium time series. FIGURE:
 
 
-#### Classification Methods . 
+#### Classification Methods .
 We implemented 4 supervised learning algorithms ...
 
 ##### Logistic Regression:  
