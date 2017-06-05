@@ -26,18 +26,18 @@ Simultaneous calcium and spike data were acquired from 5 sessions (with between 
 ##### Classification Methods
 We implemented 4 supervised learning algorithms ...
 
-##### Logistic Regression:  
+##### Logistic Regression: <br>
 
 
-##### Support Vector Machine:  
+##### Support Vector Machine: <br> 
 We constructed a linear SVM using the package LIBSVM to conduct a baseline test of how well the features could predict the labels.
 
 
-##### Gradient Boosting:  
+##### Gradient Boosting: <br> 
 We built a gradient boosted decision tree classifier using XGBoost and tensorflow. This classifier builds many weakly accurate decision trees and combines their predictions into an ensemble that tends to be fairly accurate. We are using a binary, sigmoidal loss function and the default boosting parameters (no regularization, no maximum depth, etc.). Because of this, the model overfits the training data and performs at about a ZeroR classifier level on testing data. We plan to manipulate these values to reduce overfitting Specifically, we will focus on tuning the L1 regularization, L2 regularization, L2 regularization on tree biases, max depth, gamma, eta, and number of training iterations.
 
 
-##### Neural Networks:   
+##### Neural Networks: <br>  
 We have constructed a feed forward neural network with 3 hidden layers using Tensorflow and sklearn. The network is trained for a binary classification task. The loss function being used is the probability error (cross entropy softmax with logits). We use Adam optimizer with a learning rate of 0.01 to minimize this loss. The network then predicts the spikes given the test examples. 
 
 
