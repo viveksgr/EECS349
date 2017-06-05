@@ -1,4 +1,4 @@
-##**Predicting neural spike trains from two-photon calcium imaging**
+**Predicting neural spike trains from two-photon calcium imaging**
 
 Maite Azcorra-Sedano, Han Jiang, Torben Noto, Vivek Sagar
 
