@@ -12,7 +12,7 @@ Several computational models (deconvolution filters, Bayesian, biophysical and g
 GRAPH:
 ```
 
-### **Final Report
+### Final Report
 
 ### Introduction
 
