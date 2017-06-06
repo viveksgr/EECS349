@@ -20,7 +20,14 @@ Northwestern University, EECS349 Spring 2017 - Machine Learning
 
 
 #### Data Acquisition and Feature Selection
-Simultaneous calcium and spike data were acquired from 5 sessions (with between 5-21 neurons in each session and each neuron yielding of the order of 30,000-80,000 time points worth of instances). Spike trains were binarized, and raw calcium signals were converted into features (Fig 1.). We use the calcium signal to derive additional attributes, namely, the history and future of calcium activity, first and higher order derivatives, and a moving average across the calcium time series. FIGURE:
+We obtained a dataset of concurrent calcium and spiking recordings from the Collaborative Research in Computational Neuroscience (CRCNS) website: https://crcns.org/data-sets/methods/cai-3/about-ret-2. This dataset contains 5 sessions of the experimentors recording neurons from different parts of the brain using different calcium indicators and under different brain states  (described in detail here: https://crcns.org/files/data/cai-3/crcns_cai-3_data_description.pdf). Each session contained between 5-21 neurons and each neuron yielding of the order of 30,000-80,000 time points worth of instances).
+After examining the data, several of the recordings appeared to be atypical and were rejected for further analyssis. The subset of the data we analyzed (Fig 1.) contained 781082 time points from 13 cells in the mouse retina and 9 cells in the mouse visual cortex. Spikes are infrequent in neural recordings and our dataset contained 24301 total spikes (3% of the data). The sparisty of positive examples presented a challenge for further analyses. Furthermore, while spikes are discrete events, they tend to occur in bursts called 'spike trains'. The sampling rate of the recordings (100 Hz) was such that multiple spikes were sometimes binned into single time points. Beacuse positive examples of spike events containing more than one spike were even more sparse compared to negative examples, we chose to binarize the spiking.
+img: /images/raw_data_example.png
+
+
+Raw calcium signals were converted into features (Fig 2.). For each time point, we calculated the instantanious calcium signal, all of the calcium signals between one second in the future and past, the derivative of the calcium signal, the second deriviative of the calcium signal, a sliding window average of calcium activity over 11 increasingly broad windows. Additionally, we included labels about the brain region that the neurons were recorded from, the cognitive state of the mouse, and the calcium indicator that was used.
+img: /images/feature_matrix.png
+
 
 
 #### Classification Methods
@@ -29,17 +36,33 @@ We implemented 4 supervised learning algorithms ...
 ##### Logistic Regression: <br>
 
 
-##### Support Vector Machine: <br> 
+##### Support Vector Machine: <br>
 We constructed a linear SVM using the package LIBSVM to conduct a baseline test of how well the features could predict the labels.
 
 
-##### Gradient Boosting: <br> 
-We built a gradient boosted decision tree classifier using XGBoost and tensorflow. This classifier builds many weakly accurate decision trees and combines their predictions into an ensemble that tends to be fairly accurate. We are using a binary, sigmoidal loss function and the default boosting parameters (no regularization, no maximum depth, etc.). Because of this, the model overfits the training data and performs at about a ZeroR classifier level on testing data. We plan to manipulate these values to reduce overfitting Specifically, we will focus on tuning the L1 regularization, L2 regularization, L2 regularization on tree biases, max depth, gamma, eta, and number of training iterations.
+##### Gradient Boosting: <br>
+We built a gradient boosted decision tree classifier using XGBoost and tensorflow. This classifier builds many weakly accurate decision trees and combines their predictions into an ensemble that tends to be fairly accurate. We used a binary, sigmoidal loss function and optimized several important hyperparameters (L1 regularization, L2 regularization, gamma, and learning step size) of the model to improve performance. All code for training and optimizing gradient boosted trees can be found at https://github.com/torbenator/calcium_spikes
 
 
-##### Neural Networks: <br>  
-We have constructed a feed forward neural network with 3 hidden layers using Tensorflow and sklearn. The network is trained for a binary classification task. The loss function being used is the probability error (cross entropy softmax with logits). We use Adam optimizer with a learning rate of 0.01 to minimize this loss. The network then predicts the spikes given the test examples. 
+
+
+##### Neural Networks: <br>
+We have constructed a feed forward neural network with 3 hidden layers using Tensorflow and sklearn. The network is trained for a binary classification task. The loss function being used is the probability error (cross entropy softmax with logits). We use Adam optimizer with a learning rate of 0.01 to minimize this loss. The network then predicts the spikes given the test examples.
 
 
 #### Results
 
+images/xgboost_accuracy_curve.png
+
+
+#### Discussion
+
+this data was sketch af. and we should do this with better data.
+foo
+Investigating the feature importance scores for the gradient boosted trees provides novel insights to which features contributed to accurate predictions. Perhaps not so surprisingly, the feature that provided on average the most information gain and that was split on the most, was the brain region that the neuron was recorded from (f60). This supports the idea that calcium dynamics are not identical from one neuron to the next, but may be somewhat specific to cell type and cellular environment.
+More surprisingly, simultanious calcium level was not a particularly useful feature for predicting spiking. The calcium currents preceeding and following a given time point tended to be used in these trees. Even calcium at times 200 ms before spikes (f53) was a particularly strong contributor to prediction accuracy.
+
+/images/feature_importance_scores.png
+foo
+
+future work: using sliding window derivative.
