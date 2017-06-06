@@ -45,12 +45,12 @@ We have constructed a feed forward neural network with 3 hidden layers using Ten
 #### Results
 
 ##### Logistic Regression
-
+<img src = "figures/calcium_logreg.eps" alt="Fig. X" class="inline" width="600"/><br>
 ##### Gradient Boosting
 <img src = "figures/xgboost_accuracy_curve.png" alt="Fig. X" class="inline" width="600"/>
 
 ##### RNN
-
+<img src = "figures/image.png" alt="Fig. X" class="inline" width="600"/><br>
 #### Discussion
 
 Investigating the feature importance scores for the gradient boosted trees provides novel insights to which features contributed to accurate predictions. Perhaps not so surprisingly, the feature that provided on average the most information gain and that was split on the most, was the brain region that the neuron was recorded from (f60). This supports the idea that calcium dynamics are not identical from one neuron to the next, but may be somewhat specific to cell type and cellular environment.
