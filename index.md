@@ -3,7 +3,7 @@
 Maite Azcorra-Sedano, Han Jiang, Torben Noto, Vivek Sagar <br>
 Northwestern University, EECS349 Spring 2017 - Machine Learning
 
-#### Abstract
+#### <u>Abstract</u>
 
 > A current challenge in neuroscience is determining the spiking of neurons from recordings of features that are related to their firing, but which are naturally noisy and imprecise. Calcium imaging is a popular technique that optically measures intracellular levels of calcium from thousands of neurons simultaneously. Despite several advantages of calcium imaging, it suffers from the drawback that the calcium levels only provide a proxy for neuronal firing. Even though there is a strong biophysical framework to explain how neuronal firing relates to calcium currents, it is not clear how we can mathematically calculate the neuronal spiking from calcium signals due to factors like limited sampling rates and dye-buffering. A precise and fast algorithm for doing this would obviate the need for jointly calibrating the electrophysiological and imaging experiments.
 >
@@ -26,7 +26,7 @@ After examining the data, several of the recordings appeared to be atypical and 
 Figure 2. Example calcium (yellow) and spike train (black) traces of 3 cells over time 
 
 
-Raw calcium signals were converted into features (Fig 2.). For each time point, we calculated the instantanious calcium signal, all of the calcium signals between one second in the future and past, the derivative of the calcium signal, the second deriviative of the calcium signal, a sliding window average of calcium activity over 11 increasingly broad windows. Additionally, we included labels about the brain region that the neurons were recorded from, the cognitive state of the mouse, and the calcium indicator that was used. Because we found that many sessions and cells contained data with low signal to noise ratio, we selected data from two sessions with high SNR, training on 70% and testing on 30%. (THIS IS THE BASIC SPLIT RIGHT?)
+Raw calcium signals were converted into features (Fig 2.). For each time point, we calculated the instantanious calcium signal, all of the calcium signals between one second in the future and past, the derivative of the calcium signal, the second deriviative of the calcium signal, a sliding window average of calcium activity over 11 increasingly broad windows. Additionally, we included labels about the brain region that the neurons were recorded from, the cognitive state of the mouse, and the calcium indicator that was used. Because we found that many sessions and cells contained data with low signal to noise ratio (for example, compare cells 2 and 3 from Fig. 1), we selected data from two sessions with high SNR, training on 70% and testing on 30%. (MAITE CAN YOU PROVIDE SOME QUANTITATIVE SNR INFO FOR WHY WE DID 3 AND 5?)
 <img src = "figures/feature_matrix.png" alt="Fig. 3" class="inline" width="800"/><br>
 Figure 3. Example of extracted features from calcium signal over time
 
@@ -54,13 +54,15 @@ We have constructed a feed forward neural network with 3 hidden layers using Ten
 
 #### Results
 
+##### Logistic Regression
+
+##### Gradient Boosting
 <img src = "figures/xgboost_accuracy_curve.png" alt="Fig. X" class="inline" width="800"/>
 
+##### RNN
 
 #### Discussion
 
-this data was sketch af. and we should do this with better data.
-foo
 Investigating the feature importance scores for the gradient boosted trees provides novel insights to which features contributed to accurate predictions. Perhaps not so surprisingly, the feature that provided on average the most information gain and that was split on the most, was the brain region that the neuron was recorded from (f60). This supports the idea that calcium dynamics are not identical from one neuron to the next, but may be somewhat specific to cell type and cellular environment.
 More surprisingly, simultanious calcium level was not a particularly useful feature for predicting spiking. The calcium currents preceeding and following a given time point tended to be used in these trees. Even calcium at times 200 ms before spikes (f53) was a particularly strong contributor to prediction accuracy.
 <center>
