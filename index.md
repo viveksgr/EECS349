@@ -13,8 +13,8 @@ Northwestern University, EECS349 Spring 2017 - Machine Learning
 
 
 
-#### Final Report
-
+#### <u>Final Report</u>
+<p><p>
 
 #### Introduction
 
@@ -22,7 +22,7 @@ Northwestern University, EECS349 Spring 2017 - Machine Learning
 #### Data Acquisition and Feature Selection
 We obtained a dataset of concurrent calcium and spiking recordings from the [Collaborative Research in Computational Neuroscience (CRCNS) website](https://crcns.org/data-sets/methods/cai-3/about-ret-2). This dataset contains 5 sessions of the experimentors recording neurons from different parts of the brain using different calcium indicators and under different brain states  (described in detail [here](https://crcns.org/files/data/cai-3/crcns_cai-3_data_description.pdf)). Each session contained between 5-21 neurons and each neuron yielding of the order of 30,000-80,000 time points worth of instances).
 After examining the data, several of the recordings appeared to be atypical and were rejected for further analyssis. The subset of the data we analyzed (Fig 1.) contained 781082 time points from 13 cells in the mouse retina and 9 cells in the mouse visual cortex. Spikes are infrequent in neural recordings and our dataset contained 24301 total spikes (3% of the data). The sparisty of positive examples presented a challenge for further analyses. Furthermore, while spikes are discrete events, they tend to occur in bursts called 'spike trains'. The sampling rate of the recordings (100 Hz) was such that multiple spikes were sometimes binned into single time points. Beacuse positive examples of spike events containing more than one spike were even more sparse compared to negative examples, we chose to binarize the spiking.
-<img src = "figures/raw_data_example.png" alt="Fig. 2" class="inline"/>
+<img src = "figures/raw_data_example.png" alt="Fig. 2" class="inline" width="641"/>
 
 
 Raw calcium signals were converted into features (Fig 2.). For each time point, we calculated the instantanious calcium signal, all of the calcium signals between one second in the future and past, the derivative of the calcium signal, the second deriviative of the calcium signal, a sliding window average of calcium activity over 11 increasingly broad windows. Additionally, we included labels about the brain region that the neurons were recorded from, the cognitive state of the mouse, and the calcium indicator that was used.
