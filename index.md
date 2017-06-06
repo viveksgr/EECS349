@@ -7,7 +7,7 @@ Northwestern University, EECS349 Spring 2017 - Machine Learning
 
 > A current challenge in neuroscience is determining the spiking of neurons from recordings of features that are related to their firing, but which are naturally noisy and imprecise. Calcium imaging is a popular technique that optically measures intracellular levels of calcium from thousands of neurons simultaneously. Despite several advantages of calcium imaging, it suffers from the drawback that the calcium levels only provide a proxy for neuronal firing. Even though there is a strong biophysical framework to explain how neuronal firing relates to calcium currents, it is not clear how we can mathematically calculate the neuronal spiking from calcium signals due to factors like limited sampling rates and dye-buffering. A precise and fast algorithm for doing this would obviate the need for jointly calibrating the electrophysiological and imaging experiments.
 >
-> Several computational models (deconvolution filters, Bayesian, biophysical and generalized linear models) have been proposed to predict the spike trains from calcium currents, but their estimation necessitates making several assumptions about the mechanism underlying the relationship between calcium currents and neuronal spiking. Here we implemented several supervised machine learning algorithms which do not require such assumptions, including logistic regression, support vector machine (SVM), gradient boosting, feedfoward neural networks, and recurrent neural networks to predict spike trains from calcium signals and their derivatives. RESULTS:
+> Several computational models (deconvolution filters, Bayesian, biophysical and generalized linear models) have been proposed to predict the spike trains from calcium currents, but their estimation necessitates making several assumptions about the mechanism underlying the relationship between calcium currents and neuronal spiking. Here we implemented several supervised machine learning algorithms which do not require such assumptions, including logistic regression, gradient boosting, feedfoward neural networks, and recurrent neural networks to predict spike trains from calcium signals and their derivatives. RESULTS:
 >
 > GRAPH:
 
@@ -29,21 +29,14 @@ Raw calcium signals were converted into features (Fig 2.). For each time point, 
 Figure 3. Example of extracted features from calcium signal over time
 
 #### Classification Methods<br>
-We implemented 4 supervised learning algorithms to generate predictions of spike patterns from concurrent calcium signal and accompanying extracted features. At a first pass, we implemented logistic regression, support vector machine and feedforward neural nets to examine baseline performance in cases when the classifer does not naturally take into account the temporal nature of the signal. TORBEN ADD REASONING FOR WHY USE XGBOOST? Following this, we implemented a recurrent neural network which applies LSTM to potentially capture temporal dependencies that affect spiking. VIVEK MAY WANT TO ADD TO THIS? I HAVE A PRETTY SIMPLISTIC UNDERSTANDING AS YOU CAN SEE.
+We implemented 4 supervised learning algorithms to generate predictions of spike patterns from concurrent calcium signal and accompanying extracted features. At a first pass, we implemented logistic regression and feedforward neural nets to examine baseline performance in cases when the classifer does not naturally take into account the temporal nature of the signal. TORBEN ADD REASONING FOR WHY USE XGBOOST? Following this, we implemented a recurrent neural network which applies LSTM to potentially capture temporal dependencies that affect spiking. VIVEK MAY WANT TO ADD TO THIS? I HAVE A PRETTY SIMPLISTIC UNDERSTANDING AS YOU CAN SEE.
 
 ##### Logistic Regression: <br>
 
 First, we applied a logistic regression model, which estimates the probabilistic relationship between independent input and dependent output using a logistic function in order to classify spike trains. We used an empiraclly chose a regularization parameter between L1 and L2 by calculating precision of the training model over all lambdas between 0 and 1, with step size .05, and choosing the lambda with the highest precision. Then we used the output model from the best lambda to test on the independently drawn test dataset.
 
-##### Support Vector Machine: <br>
-We constructed a support vector machine using the package LIBSVM, applying a radial basis function kernel.
-
-
 ##### Gradient Boosting: <br>
 We built a gradient boosted decision tree classifier using XGBoost and tensorflow. This classifier builds many weakly accurate decision trees and combines their predictions into an ensemble that tends to be fairly accurate. We used a binary, sigmoidal loss function and optimized several important hyperparameters (L1 regularization, L2 regularization, gamma, and learning step size) of the model to improve performance. All code for training and optimizing gradient boosted trees can be found at [here](https://github.com/torbenator/calcium_spikes)
-
-
-
 
 ##### Neural Networks: <br>
 We have constructed a feed forward neural network with 3 hidden layers using Tensorflow and sklearn. The network is trained for a binary classification task. The loss function being used is the probability error (cross entropy softmax with logits). We use Adam optimizer with a learning rate of 0.01 to minimize this loss. The network then predicts the spikes given the test examples.
