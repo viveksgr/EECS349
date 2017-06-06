@@ -62,7 +62,7 @@ foo
 Investigating the feature importance scores for the gradient boosted trees provides novel insights to which features contributed to accurate predictions. Perhaps not so surprisingly, the feature that provided on average the most information gain and that was split on the most, was the brain region that the neuron was recorded from (f60). This supports the idea that calcium dynamics are not identical from one neuron to the next, but may be somewhat specific to cell type and cellular environment.
 More surprisingly, simultanious calcium level was not a particularly useful feature for predicting spiking. The calcium currents preceeding and following a given time point tended to be used in these trees. Even calcium at times 200 ms before spikes (f53) was a particularly strong contributor to prediction accuracy.
 
-![alt text](https://github.com/heidijiang/EECS349/tree/master/figures/feature_importance_scores.png "Figure X")
+![alt text](https://github.com/heidijiang/EECS349/tree/master/figures/feature_importance_scores.png =1272x366)
 foo
 
 future work: using sliding window derivative.
