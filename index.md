@@ -36,7 +36,7 @@ We implemented 4 supervised learning algorithms to generate predictions of spike
 First, we applied a logistic regression model, which estimates the probabilistic relationship between independent input and dependent output using a logistic function in order to classify spike trains. We used an empiraclly chose a regularization parameter between L1 and L2 by calculating precision of the training model over all lambdas between 0 and 1, with step size .05, and choosing the lambda with the highest precision. Then we used the output model from the best lambda to test on the independently drawn test dataset.
 
 ##### Gradient Boosting: <br>
-We built a gradient boosted decision tree classifier using XGBoost and tensorflow. This classifier builds many weakly accurate decision trees and combines their predictions into an ensemble that tends to be fairly accurate. We used a binary, sigmoidal loss function and optimized several important hyperparameters (L1 regularization, L2 regularization, gamma, and learning step size) of the model to improve performance. All code for training and optimizing gradient boosted trees can be found at [here](https://github.com/torbenator/calcium_spikes)
+We built a gradient boosted decision tree classifier using XGBoost and tensorflow. This classifier builds many weakly accurate, shallow decision trees and combines their predictions into an ensemble that can be fairly accurate. We used a binary, sigmoidal loss function and optimized several important hyperparameters (L1 regularization, L2 regularization, gamma, and learning step size) of the model to improve performance. All code for training and optimizing gradient boosted trees can be found at [here](https://github.com/torbenator/calcium_spikes)
 
 ##### Neural Networks: <br>
 We have constructed a feed forward neural network with 3 hidden layers using Tensorflow and sklearn. The network is trained for a binary classification task. The loss function being used is the probability error (cross entropy softmax with logits). We use Adam optimizer with a learning rate of 0.01 to minimize this loss. The network then predicts the spikes given the test examples.
@@ -54,7 +54,8 @@ We have constructed a feed forward neural network with 3 hidden layers using Ten
 #### Discussion
 
 Investigating the feature importance scores for the gradient boosted trees provides novel insights to which features contributed to accurate predictions. Perhaps not so surprisingly, the feature that provided on average the most information gain and that was split on the most, was the brain region that the neuron was recorded from (f60). This supports the idea that calcium dynamics are not identical from one neuron to the next, but may be somewhat specific to cell type and cellular environment.
-More surprisingly, simultanious calcium level was not a particularly useful feature for predicting spiking. The calcium currents preceeding and following a given time point tended to be used in these trees. Even calcium at times 200 ms before spikes (f53) was a particularly strong contributor to prediction accuracy.
+More surprisingly, simultanious calcium level (f0) was not a particularly useful feature for predicting spiking. Concurrent calcium values alone correlated with raw spiking with a Pearson's r value of 0.10, and the boosted trees algorithm had a .16 Pearson's r value with spiking in the test set. The calcium currents preceeding and following a given time point were relied upon in this model (f17-57). Even calcium at times 200 ms before spikes (f53) was a particularly strong contributor to prediction accuracy.
+
 <center>
 <img src ="figures/feature_importance_scores.png" alt="Fig. X" class="inline" width="400"/>
 </center>
