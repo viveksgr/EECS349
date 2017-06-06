@@ -3,7 +3,7 @@
 Maite Azcorra-Sedano, Han Jiang, Torben Noto, Vivek Sagar <br>
 Northwestern University, EECS349 Spring 2017 - Machine Learning
 
-#### <u>Abstract</u>
+#### Abstract
 
 > A current challenge in neuroscience is determining the spiking of neurons from recordings of features that are related to their firing, but which are naturally noisy and imprecise. Calcium imaging is a popular technique that optically measures intracellular levels of calcium from thousands of neurons simultaneously. Despite several advantages of calcium imaging, it suffers from the drawback that the calcium levels only provide a proxy for neuronal firing. Even though there is a strong biophysical framework to explain how neuronal firing relates to calcium currents, it is not clear how we can mathematically calculate the neuronal spiking from calcium signals due to factors like limited sampling rates and dye-buffering. A precise and fast algorithm for doing this would obviate the need for jointly calibrating the electrophysiological and imaging experiments.
 >
@@ -13,7 +13,7 @@ Northwestern University, EECS349 Spring 2017 - Machine Learning
 
 
 
-#### <u>Final Report</u>
+#### Final Report
 
 #### Introduction
 
