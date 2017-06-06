@@ -45,7 +45,7 @@ We have constructed a feed forward neural network with 3 hidden layers using Ten
 #### Results
 
 ##### Logistic Regression
-<img src = "figures/calcium_logreg.png" alt="Fig. X" class="inline" width="600"/><br>
+<img src = "figures/calcium_logreg.png" alt="Fig. X" class="inline" width="400"/><br>
 ##### Gradient Boosting
 <img src = "figures/xgboost_accuracy_curve.png" alt="Fig. X" class="inline" width="600"/>
 
