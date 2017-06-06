@@ -26,7 +26,7 @@ After examining the data, several of the recordings appeared to be atypical and 
 
 
 Raw calcium signals were converted into features (Fig 2.). For each time point, we calculated the instantanious calcium signal, all of the calcium signals between one second in the future and past, the derivative of the calcium signal, the second deriviative of the calcium signal, a sliding window average of calcium activity over 11 increasingly broad windows. Additionally, we included labels about the brain region that the neurons were recorded from, the cognitive state of the mouse, and the calcium indicator that was used.
-![Fig.2](https://github.com/heidijiang/EECS349/tree/master/figures/feature_matrix.png)
+![Fig.2](figures/feature_matrix.png)
 
 
 
@@ -52,7 +52,7 @@ We have constructed a feed forward neural network with 3 hidden layers using Ten
 
 #### Results
 
-![xgboost_accuracy](https://github.com/heidijiang/EECS349/tree/master/figures/xgboost_accuracy_curve.png)
+![xgboost_accuracy](figures/xgboost_accuracy_curve.png)
 
 
 #### Discussion
@@ -62,7 +62,6 @@ foo
 Investigating the feature importance scores for the gradient boosted trees provides novel insights to which features contributed to accurate predictions. Perhaps not so surprisingly, the feature that provided on average the most information gain and that was split on the most, was the brain region that the neuron was recorded from (f60). This supports the idea that calcium dynamics are not identical from one neuron to the next, but may be somewhat specific to cell type and cellular environment.
 More surprisingly, simultanious calcium level was not a particularly useful feature for predicting spiking. The calcium currents preceeding and following a given time point tended to be used in these trees. Even calcium at times 200 ms before spikes (f53) was a particularly strong contributor to prediction accuracy.
 
-<img src ="https://github.com/heidijiang/EECS349/tree/master/figures/feature_importance_scores.png">
-foo
+<img src ="figures/feature_importance_scores.png">
 
 future work: using sliding window derivative.
