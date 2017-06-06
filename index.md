@@ -22,21 +22,24 @@ Northwestern University, EECS349 Spring 2017 - Machine Learning
 #### Data Acquisition and Feature Selection
 We obtained a dataset of concurrent calcium and spiking recordings from the [Collaborative Research in Computational Neuroscience (CRCNS) website](https://crcns.org/data-sets/methods/cai-3/about-ret-2). This dataset contains 5 sessions of the experimentors recording neurons from different parts of the brain using different calcium indicators and under different brain states  (described in detail [here](https://crcns.org/files/data/cai-3/crcns_cai-3_data_description.pdf)). Each session contained between 5-21 neurons and each neuron yielding of the order of 30,000-80,000 time points worth of instances).
 After examining the data, several of the recordings appeared to be atypical and were rejected for further analyssis. The subset of the data we analyzed (Fig 1.) contained 781082 time points from 13 cells in the mouse retina and 9 cells in the mouse visual cortex. Spikes are infrequent in neural recordings and our dataset contained 24301 total spikes (3% of the data). The sparisty of positive examples presented a challenge for further analyses. Furthermore, while spikes are discrete events, they tend to occur in bursts called 'spike trains'. The sampling rate of the recordings (100 Hz) was such that multiple spikes were sometimes binned into single time points. Beacuse positive examples of spike events containing more than one spike were even more sparse compared to negative examples, we chose to binarize the spiking.
-<img src = "figures/raw_data_example.png" alt="Fig. 2" class="inline" width="800"/>
+<img src = "figures/raw_data_example.png" alt="Fig. 2" class="inline" width="800"/><br>
+Figure 2. Example calcium (yellow) and spike train (black) traces of 3 cells over time 
 
 
-Raw calcium signals were converted into features (Fig 2.). For each time point, we calculated the instantanious calcium signal, all of the calcium signals between one second in the future and past, the derivative of the calcium signal, the second deriviative of the calcium signal, a sliding window average of calcium activity over 11 increasingly broad windows. Additionally, we included labels about the brain region that the neurons were recorded from, the cognitive state of the mouse, and the calcium indicator that was used.
-<img src = "figures/feature_matrix.png" alt="Fig. 3" class="inline" width="800"/>
+Raw calcium signals were converted into features (Fig 2.). For each time point, we calculated the instantanious calcium signal, all of the calcium signals between one second in the future and past, the derivative of the calcium signal, the second deriviative of the calcium signal, a sliding window average of calcium activity over 11 increasingly broad windows. Additionally, we included labels about the brain region that the neurons were recorded from, the cognitive state of the mouse, and the calcium indicator that was used. Because we found that many sessions and cells contained data with low signal to noise ratio, we selected data from two sessions with high SNR, training on 70% and testing on 30%. (THIS IS THE BASIC SPLIT RIGHT?)
+<img src = "figures/feature_matrix.png" alt="Fig. 3" class="inline" width="800"/><br>
+Figure 3. Example of extracted features from calcium signal over time
 
 
-#### Classification Methods
-We implemented 4 supervised learning algorithms ...
+#### Classification Methods<br>
+We implemented 4 supervised learning algorithms to generate predictions of spike patterns from concurrent calcium signal and accompanying extracted features. At a first pass, we implemented logistic regression, support vector machine and feedforward neural nets to examine baseline performance in cases when the classifer does not naturally take into account the temporal nature of the signal. TORBEN ADD REASONING FOR WHY USE XGBOOST? Following this, we implemented a recurrent neural network which applies LSTM to potentially capture temporal dependencies that affect spiking. VIVEK MAY WANT TO ADD TO THIS? I HAVE A PRETTY SIMPLISTIC UNDERSTANDING AS YOU CAN SEE.
 
 ##### Logistic Regression: <br>
 
+First, we applied a logistic regression model, which estimates the probabilistic relationship between independent input and dependent output using a logistic function in order to classify spike trains. We used an empiraclly chose a regularization parameter between L1 and L2 by calculating precision of the training model over all lambdas between 0 and 1, with step size .05, and choosing the lambda with the highest precision. Then we used the output model from the best lambda to test on the independently drawn test dataset.
 
 ##### Support Vector Machine: <br>
-We constructed a linear SVM using the package LIBSVM to conduct a baseline test of how well the features could predict the labels.
+We constructed a support vector machine using the package LIBSVM, applying a radial basis function kernel.
 
 
 ##### Gradient Boosting: <br>
